@@ -1,5 +1,11 @@
 'use strict'
 var mysql = require('mysql')
+function init () {
+  document.querySelector('#SendBtn').addEventListener('click', function listeners (e) {
+    this.removeEventListener('click', listeners)
+    console.log('BUTTON CLICKED')
+  })
+}
 
 var con = mysql.createConnection({
   host: '127.0.0.1',
@@ -17,3 +23,5 @@ con.connect(function (err) {
     console.log('Connected!')
   }
 })
+
+window.addEventListener('load', init)
