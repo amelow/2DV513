@@ -8,7 +8,6 @@ const port = process.env.PORT || 3000
 app.use(express.static('public'))
 
 app.post('/book', (request, response) => {
-  response.json({ key: 'hej' })
+  response.json({ name: 'name' })
 })
-
 app.listen(port, console.log('server starts'))

@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "form-data": "^3.0.0",
+    "require": "^2.4.20"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
