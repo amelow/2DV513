@@ -14,10 +14,13 @@
     <nav>
         <a href="./index.html" class= "navigationTags">Home</a>
         <a href="./myPage.html" class="navigationTags">My Club</a>
+        <a href="./findNew.html" class="navigationTags">Find New</a>
     </nav>
         </header>
         <body>
+            <div id = "newClub">
             <form action="" id = "form">
+                <h2>Join a new BookClub</h2>
                 <br>
                 <label>Name</label>
                 <input type="text" id = name placeholder="Your name....">
@@ -28,8 +31,54 @@
                 <label>Country</label>
                 <input type="text" id = country placeholder="Country....">
                 <br>
-                
+                <label>Bookclub Name</label>
+                <input type="text" id = bookClubName placeholder="Name....">
+                <br>
             <br><button type="submit" id="SendBtn">Join</button>
+        </form>
+        </div>
+        <div id = "addReview">
+            <form action="" id = "form">
+                <h2>Review a new book </h2>
+                <label>Author</label>
+                <input type="text" id = author placeholder="Author....">
+                <br>
+                <label>Book title</label>
+                <input type="text" id = bookTitle placeholder="Booktitle...">
+                <br>
+                <label for="type">Genre</label>
+                <select id="bookCategory" name="category">
+                    <option value="romanceOpt">Romance</option>
+                    <option value="horrorOpt">Horror</option>
+                    <option value="mysteryOpt">Mystery</option>
+                    <option value="humorOpt">Humor</option>
+                    <option value="memoirOpt">Memoir</option>
+                </select>
+                <br>
+                <label>Publisher</label>
+                <input type="text"id = publisher placeholder="Name of publisher">
+                <br>
+                <label>Publishing year</label>
+                <input type="number" id = year placeholder="year....">
+                <br>
+                <label>Price </label>
+                <input type="text" id = price placeholder="price....">
+                <br>
+                <label for="type">Rate the book</label>
+                <select id="bookRating" name="bookRating">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <br>
+            <label>Comments:</label>
+            <br
+            ><textarea name="Comments..." id="commentBox" cols="30" rows="10"></textarea>
+            <br><button type="submit" id="SendBtn">Add</button>
             </form>
+        </div>
+           
 </body>
 </html>
