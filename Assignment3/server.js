@@ -41,6 +41,13 @@ function fetchData (request) {
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
   })
+  con.query('SELECT * FROM sys.BookInfo WHERE authorName= "jovi";', function (err, rows) {
+    if (!err) {
+      console.log('The solution is: ', rows)
+    } else {
+      console.log('Error while performing Query.')
+    }
+  })
 }
 
 app.listen(port, console.log('server starts'))
