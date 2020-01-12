@@ -4,12 +4,14 @@ function init () {
   window.removeEventListener('load', init)
   const form = document.getElementById('form')
   form.addEventListener('submit', fetchData)
-  console.log('button pressed')
 }
 function fetchData (e) {
   e.preventDefault()
-  // const name = document.getElementById('name').value
-  // const age = document.getElementById('age').value
+  const name = document.getElementById('name').value
+  const age = document.getElementById('age').value
+  const bookClubName = document.getElementById('bookClubName').value
+  const country = document.getElementById('country').value
+
   const author = document.getElementById('author').value
   const bookTitle = document.getElementById('bookTitle').value
   const publisher = document.getElementById('publisher').value
@@ -19,14 +21,11 @@ function fetchData (e) {
   const ratings = document.getElementById('bookRating').value
   const comment = document.getElementById('commentBox').value
 
-  // const bookClubName = document.getElementById('bookClubName').value
-  // const country = document.getElementById('country').value
-  /*
-   name,
+  const obj = {
+    name,
     age,
     country,
-    bookClubName, */
-  const obj = {
+    bookClubName,
     author,
     bookTitle,
     publisher,

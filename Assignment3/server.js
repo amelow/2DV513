@@ -7,6 +7,7 @@ const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 var mysql = require('mysql')
 var bookInformation = []
+var userInformation = []
 
 var con = mysql.createConnection({
   host: '127.0.0.1',
@@ -34,11 +35,11 @@ app.post('/book', (request, response) => {
 function fetchData (request) {
   bookInformation = [[request.body.author, request.body.bookTitle, request.body.publisher, request.body.year, request.body.category, request.body.price, request.body.ratings, request.body.comment]]
   var sqlTable1 = 'INSERT IGNORE INTO BookInfo (authorName, bookTitle, publisherName, publishingYear, bookGenre, bookPrice, bookRating,comment) VALUES ?'
-
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
-    getQueries()
   })
+  userInformation = []
+  getQueries()
   function getQueries () {
     con.query('SELECT * FROM sys.BookInfo WHERE authorName= "jovi";', function (err, rows) {
       if (!err) {
