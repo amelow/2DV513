@@ -4,6 +4,8 @@ function init () {
   window.removeEventListener('load', init)
   const form = document.getElementById('form')
   form.addEventListener('submit', fetchData)
+  const form2 = document.getElementById('form1')
+  form2.addEventListener('submit', fetchData)
 }
 function fetchData (e) {
   e.preventDefault()

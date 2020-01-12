@@ -38,7 +38,16 @@ function fetchData (request) {
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
   })
-  userInformation = []
+  /*
+   name,
+    age,
+    country,
+    bookClubName, */
+  userInformation = [[request.body.name, request.body.age]]
+  var sqlTable2 = 'INSERT IGNORE INTO UserInfo (userName, userAge) VALUES ?'
+  con.query(sqlTable2, [userInformation], function (err, result) {
+    if (err) throw err
+  })
   getQueries()
   function getQueries () {
     con.query('SELECT * FROM sys.BookInfo WHERE authorName= "jovi";', function (err, rows) {
