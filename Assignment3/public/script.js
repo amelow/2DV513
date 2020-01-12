@@ -1,4 +1,3 @@
-// const e = require('express')
 
 // CLIENT SCRIPT som körs i webbläsaren
 function init () {
@@ -17,6 +16,7 @@ function fetchData (e) {
   const price = document.getElementById('price').value
   const ratings = document.getElementById('bookRating').value
   const comment = document.getElementById('commentBox').value
+
   const obj = {
     name,
     age,
@@ -28,7 +28,6 @@ function fetchData (e) {
     ratings,
     comment
   }
-
   fetch('/book', {
     method: 'POST',
     body: JSON.stringify(obj),

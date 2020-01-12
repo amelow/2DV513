@@ -6,8 +6,6 @@ const app = express()
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 var mysql = require('mysql')
-var fileSystem = require('fs')
-var fileReader = require('readline')
 var bookInformation = []
 
 var con = mysql.createConnection({
@@ -40,14 +38,16 @@ function fetchData (request) {
   var sqlTable1 = 'INSERT IGNORE INTO BookInfo (bookTitle, authorName, bookRating ) VALUES ?'
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
+    getQueries()
   })
-  con.query('SELECT * FROM sys.BookInfo WHERE authorName= "jovi";', function (err, rows) {
-    if (!err) {
-      console.log('The solution is: ', rows)
-    } else {
-      console.log('Error while performing Query.')
-    }
-  })
+  function getQueries () {
+    con.query('SELECT * FROM sys.BookInfo WHERE authorName= "Amelie Löwe";', function (err, rows) {
+      if (!err) {
+        console.log('The solution is: ', rows)
+      } else {
+        console.log('Error while performing Query.')
+      }
+    })
+  }
 }
-
 app.listen(port, console.log('server starts'))
