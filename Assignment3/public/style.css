@@ -1,49 +1,37 @@
-@import url('https://fonts.googleapis.com/css?family=Gloria+Hallelujah');
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
 h1{
-    font-family: 'Gloria Hallelujah', cursive;
+    font-family: 'Amatic SC', cursive;
     font-weight: 300;
     font-size:4em;
     text-align: center;  
+  
 }
 h2{
-    font-family:  'Gloria Hallelujah', cursive;
+    font-family: 'Amatic SC', cursive;
     font-weight: 300;
     font-size:xx-large;
     text-align: left;  
 }
-
-nav{
+body{
+    background-color:white;
+}
+.imageContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+  
+  .imageContainer div {
+    height: 500px;
+    overflow: hidden;
+    border: 10px solid white;
+  }
+  .gridPagePics {
     display: block;
-    margin: 0 auto;
-    width: 468px;
-    padding-bottom: 1em;
-    style:"bottom:-16px";
-}
-
-.navigationTags{
-    color: black;
-    text-decoration: none;
-    padding: 5px;
-    border: 2px solid black;
-    background-color:gray;
-    transition: 0.5s all;
-    width: 100px;
-    border-radius: 5px;
-    display: inline-block;
-    text-align: center;
-    font-family: 'Gloria Hallelujah', cursive;   
-}
-.navigationTags:hover{
-    background-color: whitesmoke;
-}
-
-#banner{
-    width: 100%;
-    height: 400px;
-    background-repeat: no-repeat;
-    background-position-y: -150px;
-    position: absolute;
-    top:0;
-    left:0;
-    z-index: -1;
-}
+    max-height: initial;
+    max-width: initial;
+  }
+  .tall {
+    width: auto;
+    height: 100%;
+  }
+  
