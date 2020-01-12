@@ -7,7 +7,6 @@ const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 var mysql = require('mysql')
 
-console.log('Connected!')
 var con = mysql.createConnection({
   host: '127.0.0.1',
   port: 3306,
@@ -30,7 +29,9 @@ app.use(bodyParser.json())
 app.use(express.static('public'))
 
 app.post('/book', (request, response) => {
-  console.log(request.body)
+  fetchData(request)
 })
-
+function fetchData (request) {
+  console.log(request.body)
+}
 app.listen(port, console.log('server starts'))
