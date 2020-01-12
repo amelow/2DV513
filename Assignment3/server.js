@@ -38,13 +38,8 @@ function fetchData (request) {
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
   })
-  /*
-   name,
-    age,
-    country,
-    bookClubName, */
-  userInformation = [[request.body.name, request.body.age]]
-  var sqlTable2 = 'INSERT IGNORE INTO UserInfo (userName, userAge) VALUES ?'
+  userInformation = [[request.body.name, request.body.age, request.body.country, request.body.bookClubName]]
+  var sqlTable2 = 'INSERT IGNORE INTO UserInfo (userName, userAge, userCountry,bookClubName) VALUES ?'
   con.query(sqlTable2, [userInformation], function (err, result) {
     if (err) throw err
   })
