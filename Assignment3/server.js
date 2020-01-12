@@ -26,22 +26,21 @@ con.connect(function (err) {
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
-
 app.use(express.static('public'))
-
 app.post('/book', (request, response) => {
   fetchData(request)
 })
+
 function fetchData (request) {
-  bookInformation = [[request.body.bookTitle, request.body.author, request.body.ratings]]
-  console.log('BOOK INFO ' + request.body)
-  var sqlTable1 = 'INSERT IGNORE INTO BookInfo (bookTitle, authorName, bookRating ) VALUES ?'
+  bookInformation = [[request.body.author, request.body.bookTitle, request.body.publisher, request.body.year, request.body.category, request.body.price, request.body.ratings, request.body.comment]]
+  var sqlTable1 = 'INSERT IGNORE INTO BookInfo (authorName, bookTitle, publisherName, publishingYear, bookGenre, bookPrice, bookRating,comment) VALUES ?'
+
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
     getQueries()
   })
   function getQueries () {
-    con.query('SELECT * FROM sys.BookInfo WHERE authorName= "Amelie Löwe";', function (err, rows) {
+    con.query('SELECT * FROM sys.BookInfo WHERE authorName= "jovi";', function (err, rows) {
       if (!err) {
         console.log('The solution is: ', rows)
       } else {
