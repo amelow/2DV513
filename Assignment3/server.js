@@ -34,7 +34,7 @@ app.post('/book', (request, response) => {
 })
 function fetchData (request) {
   bookInformation = [[request.body.bookTitle, request.body.author, request.body.ratings]]
-  console.log('BOOK INFO ' + bookInformation)
+  console.log('BOOK INFO ' + request.body)
   var sqlTable1 = 'INSERT IGNORE INTO BookInfo (bookTitle, authorName, bookRating ) VALUES ?'
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err

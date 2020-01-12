@@ -2,7 +2,7 @@
 // CLIENT SCRIPT som körs i webbläsaren
 function init () {
   window.removeEventListener('load', init)
-  const form = document.getElementById('form')
+  const form = document.getElementById('addReview')
   form.addEventListener('submit', fetchData)
 }
 function fetchData (e) {
@@ -16,17 +16,23 @@ function fetchData (e) {
   const price = document.getElementById('price').value
   const ratings = document.getElementById('bookRating').value
   const comment = document.getElementById('commentBox').value
+  const category = document.getElementById('category').value
+  const bookClubName = document.getElementById('bookClubName').value
+  const country = document.getElementById('country').value
 
   const obj = {
     name,
     age,
+    country,
+    bookClubName,
     author,
     bookTitle,
     publisher,
     year,
     price,
     ratings,
-    comment
+    comment,
+    category
   }
   fetch('/book', {
     method: 'POST',
