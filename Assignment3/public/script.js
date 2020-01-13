@@ -2,18 +2,45 @@
 // CLIENT SCRIPT som körs i webbläsaren
 function init () {
   window.removeEventListener('load', init)
-  const form = document.getElementById('form')
-  form.addEventListener('submit', fetchData)
-  const form2 = document.getElementById('form1')
-  form2.addEventListener('submit', fetchData)
+  document.getElementById('form1').style.display = 'none'
+  document.getElementById('form2').style.display = 'none'
+  var btn = document.createElement('button')
+  btn.innerHTML = 'Join Bookclub'
+  const div = document.getElementById('test')
+  // btn.onclick = document.getElementById('form1').style.display = 'display'
+  div.appendChild(btn)
+
+  const form1 = document.getElementById('form1')
+  form1.addEventListener('submit', fetchUserData)
+  const form2 = document.getElementById('form2')
+  form2.addEventListener('submit', fetchBookData)
 }
-function fetchData (e) {
+function fetchUserData (e) {
   e.preventDefault()
   const name = document.getElementById('name').value
   const age = document.getElementById('age').value
   const bookClubName = document.getElementById('bookClubName').value
   const country = document.getElementById('country').value
 
+  const userObj = {
+    name,
+    age,
+    country,
+    bookClubName
+  }
+  console.log(userObj)
+  fetch('/book', {
+    method: 'POST',
+    body: JSON.stringify(userObj),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+    .then(result => result.json())
+    .then(result => console.log(result))
+}
+function fetchBookData (e) {
+  e.preventDefault()
   const author = document.getElementById('author').value
   const bookTitle = document.getElementById('bookTitle').value
   const publisher = document.getElementById('publisher').value
@@ -23,11 +50,7 @@ function fetchData (e) {
   const ratings = document.getElementById('bookRating').value
   const comment = document.getElementById('commentBox').value
 
-  const obj = {
-    name,
-    age,
-    country,
-    bookClubName,
+  const bookObj = {
     author,
     bookTitle,
     publisher,
@@ -37,10 +60,10 @@ function fetchData (e) {
     comment,
     category
   }
-  console.log(obj)
+  console.log(bookObj)
   fetch('/book', {
     method: 'POST',
-    body: JSON.stringify(obj),
+    body: JSON.stringify(bookObj),
     headers: {
       'Content-Type': 'application/json'
     }

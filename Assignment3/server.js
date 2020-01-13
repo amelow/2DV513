@@ -44,10 +44,17 @@ function fetchData (request) {
     if (err) throw err
   })
   getQueries()
+
   function getQueries () {
-    con.query('SELECT * FROM sys.BookInfo WHERE authorName= "jovi";', function (err, rows) {
+    con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3";', function (err, rows) {
       if (!err) {
-        console.log('The solution is: ', rows)
+        var string = JSON.stringify(rows)
+        // console.log(string)
+        var json = JSON.parse(string)
+        console.log(json[0].bookTitle)
+
+        // console.log('The solution is: ', rows)
+        // console.log('The solution is: ', rows[1].bookTitle)
       } else {
         console.log('Error while performing Query.')
       }
