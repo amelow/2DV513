@@ -1,8 +1,6 @@
-// hämtar express bibl
+
 const express = require('express')
-// instans av express
 const app = express()
-// finns en environment variabel annars default port
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
 var mysql = require('mysql')
@@ -22,22 +20,58 @@ con.connect(function (err) {
     throw err
   } else {
     console.log('Connected!')
-    getQueries()
+    getUserAndClubQuery()
+    getGenreAndRatingQuery()
   }
 })
-function getQueries () {
+function getUserAndClubQuery () {
   con.query('SELECT userName,bookClubName FROM sys.UserInfo', function (err, rows) {
-    // con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3";', function (err, rows) {
     if (!err) {
       var string = JSON.stringify(rows)
       var json = JSON.parse(string)
       const values = Object.values(json)
-      // console.log(values)
+      console.log(values)
     } else {
       console.log('Error while performing Query.')
     }
   })
 }
+function getGenreAndRatingQuery () {
+  con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3"', function (err, rows) {
+    if (!err) {
+      var string = JSON.stringify(rows)
+      var json = JSON.parse(string)
+      const values = Object.values(json)
+      console.log(values)
+    } else {
+      console.log('Error while performing Query.')
+    }
+  })
+} function getAgeAndAuthorQuery () {
+  con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3"', function (err, rows) {
+    if (!err) {
+      var string = JSON.stringify(rows)
+      var json = JSON.parse(string)
+      const values = Object.values(json)
+      console.log(values)
+    } else {
+      console.log('Error while performing Query.')
+    }
+  })
+}
+function getCountryAndBookQuery () {
+  con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3"', function (err, rows) {
+    if (!err) {
+      var string = JSON.stringify(rows)
+      var json = JSON.parse(string)
+      const values = Object.values(json)
+      console.log(values)
+    } else {
+      console.log('Error while performing Query.')
+    }
+  })
+}
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'))

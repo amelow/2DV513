@@ -84,7 +84,7 @@ function fetchBookData (e) {
       'Content-Type': 'application/json'
     }
   })
-  // .then(result => result.json())
+    .then(result => result.json())
     .then(result => console.log('Hej' + result.body))
 }
 window.addEventListener('load', init)
