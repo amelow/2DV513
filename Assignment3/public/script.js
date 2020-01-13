@@ -1,5 +1,6 @@
 
 // CLIENT SCRIPT som körs i webbläsaren
+
 function init () {
   window.removeEventListener('load', init)
   document.getElementById('form1').style.display = 'none'
@@ -34,14 +35,14 @@ function fetchUserData (e) {
   e.preventDefault()
   const name = document.getElementById('name').value
   const age = document.getElementById('age').value
-  const bookClubName = document.getElementById('bookClubName').value
   const country = document.getElementById('country').value
+  // const bookClubName = document.getElementById('bookClubName').value
+
 
   const userObj = {
     name,
     age,
-    country,
-    bookClubName
+    country
   }
   console.log(userObj)
   fetch('/book', {
@@ -54,6 +55,7 @@ function fetchUserData (e) {
     .then(result => result.json())
     .then(result => console.log(result))
 }
+
 function fetchBookData (e) {
   document.getElementById('form2').style.display = 'none'
   e.preventDefault()
@@ -62,18 +64,16 @@ function fetchBookData (e) {
   const publisher = document.getElementById('publisher').value
   const year = document.getElementById('year').value
   const category = document.getElementById('bookCategory').value
-  const price = document.getElementById('price').value
+  // const price = document.getElementById('price').value
   const ratings = document.getElementById('bookRating').value
-  const comment = document.getElementById('commentBox').value
+  // const comment = document.getElementById('commentBox').value
 
   const bookObj = {
     author,
     bookTitle,
     publisher,
     year,
-    price,
     ratings,
-    comment,
     category
   }
   console.log(bookObj)
@@ -83,8 +83,9 @@ function fetchBookData (e) {
     headers: {
       'Content-Type': 'application/json'
     }
+
   })
     .then(result => result.json())
-    .then(result => console.log('Hej' + result.body))
+    .then(result => console.log(result.body))
 }
 window.addEventListener('load', init)

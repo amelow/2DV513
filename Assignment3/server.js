@@ -6,6 +6,8 @@ const bodyParser = require('body-parser')
 var mysql = require('mysql')
 var bookInformation = []
 var userInformation = []
+let values = {}
+
 var con = mysql.createConnection({
   host: '127.0.0.1',
   port: 3306,
@@ -19,61 +21,42 @@ con.connect(function (err) {
     throw err
   } else {
     console.log('Connected!')
-    getUserAndClubQuery()
-    getGenreAndRatingQuery()
-    TestQuery()
+    // getUserQuery()
+    // getGenreAndRatingQuery()
+    // TestQuery()
   }
 })
-function getUserAndClubQuery () {
-  con.query('SELECT userName,bookClubName FROM sys.UserInfo', function (err, rows) {
+function getUserQuery () {
+  con.query('SELECT name FROM users', function (err, rows) {
     if (!err) {
       var string = JSON.stringify(rows)
       var json = JSON.parse(string)
-      const values = Object.values(json)
+      values = Object.values(json)
       console.log(values)
     } else {
       console.log('Error while performing Query.')
     }
   })
 }
-function getGenreAndRatingQuery () {
-  con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3"', function (err, rows) {
-    if (!err) {
-      var string = JSON.stringify(rows)
-      var json = JSON.parse(string)
-      const values = Object.values(json)
-      console.log(values)
-    } else {
-      console.log('Error while performing Query.')
-    }
-  })
-} function TestQuery () {
-  con.query('SELECT authorName FROM BookInfo,UserInfo WHERE BookInfo.authorName= UserInfo.userName', function (err, rows) {
-    if (!err) {
-      var string = JSON.stringify(rows)
-      var json = JSON.parse(string)
-      const values = Object.values(json)
-      console.log(values)
-    } else {
-      console.log('Error while performing Query.')
-    }
-  })
-}
+
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
+
 app.post('/book', (request, response) => {
+  console.log('DETTA FUNKAR')
   fetchData(request)
 })
 
 function fetchData (request) {
-  bookInformation = [[request.body.author, request.body.bookTitle, request.body.publisher, request.body.year, request.body.category, request.body.price, request.body.ratings, request.body.comment]]
-  var sqlTable1 = 'INSERT IGNORE INTO BookInfo (authorName, bookTitle, publisherName, publishingYear, bookGenre, bookPrice, bookRating,comment) VALUES ?'
+  console.log(request.body)
+  bookInformation = [[request.body.author, request.body.bookTitle, request.body.publisher, request.body.year, request.body.category]]
+  var sqlTable1 = 'INSERT IGNORE INTO books (name, title, publisher, publishingYear,genre, rating) VALUES ?'
   con.query(sqlTable1, [bookInformation], function (err, result) {
     if (err) throw err
   })
-  userInformation = [[request.body.name, request.body.age, request.body.country, request.body.bookClubName]]
-  var sqlTable2 = 'INSERT IGNORE INTO UserInfo (userName, userAge, userCountry,bookClubName) VALUES ?'
+  userInformation = [[request.body.name, request.body.age, request.body.country]]
+  var sqlTable2 = 'INSERT IGNORE INTO users (name, age, country) VALUES ?'
   con.query(sqlTable2, [userInformation], function (err, result) {
     if (err) throw err
   })
