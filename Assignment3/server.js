@@ -6,7 +6,6 @@ const bodyParser = require('body-parser')
 var mysql = require('mysql')
 var bookInformation = []
 var userInformation = []
-
 var con = mysql.createConnection({
   host: '127.0.0.1',
   port: 3306,
@@ -22,6 +21,7 @@ con.connect(function (err) {
     console.log('Connected!')
     getUserAndClubQuery()
     getGenreAndRatingQuery()
+    TestQuery()
   }
 })
 function getUserAndClubQuery () {
@@ -47,8 +47,8 @@ function getGenreAndRatingQuery () {
       console.log('Error while performing Query.')
     }
   })
-} function getAgeAndAuthorQuery () {
-  con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3"', function (err, rows) {
+} function TestQuery () {
+  con.query('SELECT authorName FROM BookInfo,UserInfo WHERE BookInfo.authorName= UserInfo.userName', function (err, rows) {
     if (!err) {
       var string = JSON.stringify(rows)
       var json = JSON.parse(string)
@@ -59,19 +59,6 @@ function getGenreAndRatingQuery () {
     }
   })
 }
-function getCountryAndBookQuery () {
-  con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3"', function (err, rows) {
-    if (!err) {
-      var string = JSON.stringify(rows)
-      var json = JSON.parse(string)
-      const values = Object.values(json)
-      console.log(values)
-    } else {
-      console.log('Error while performing Query.')
-    }
-  })
-}
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
