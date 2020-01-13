@@ -22,9 +22,22 @@ con.connect(function (err) {
     throw err
   } else {
     console.log('Connected!')
+    getQueries()
   }
 })
-
+function getQueries () {
+  con.query('SELECT userName,bookClubName FROM sys.UserInfo', function (err, rows) {
+    // con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3";', function (err, rows) {
+    if (!err) {
+      var string = JSON.stringify(rows)
+      var json = JSON.parse(string)
+      const values = Object.values(json)
+      // console.log(values)
+    } else {
+      console.log('Error while performing Query.')
+    }
+  })
+}
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(express.static('public'))
@@ -43,22 +56,5 @@ function fetchData (request) {
   con.query(sqlTable2, [userInformation], function (err, result) {
     if (err) throw err
   })
-  getQueries()
-
-  function getQueries () {
-    con.query('SELECT * FROM sys.BookInfo WHERE bookGenre= "Memoir" AND bookRating= "3";', function (err, rows) {
-      if (!err) {
-        var string = JSON.stringify(rows)
-        // console.log(string)
-        var json = JSON.parse(string)
-        console.log(json[0].bookTitle)
-
-        // console.log('The solution is: ', rows)
-        // console.log('The solution is: ', rows[1].bookTitle)
-      } else {
-        console.log('Error while performing Query.')
-      }
-    })
-  }
 }
 app.listen(port, console.log('server starts'))
