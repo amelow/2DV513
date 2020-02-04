@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+
 h1{
     font-family: 'Amatic SC', cursive;
     font-weight: 300;
@@ -12,17 +13,17 @@ h2{
     font-size:xx-large;
     text-align: left;  
 }
-nav{
-    width: 90%;
-    height:8vh;
-    overflow: hidden;
-    margin: auto;
-    margin-bottom: 2vh;
-    text-align: center;
-}
-
 body{
     background-color:white;
+}
+li {
+  float: left;
+}
+
+a {
+  display: block;
+  padding: 8px;
+  background-color: #dddddd;
 }
 .imageContainer {
     display: grid;
@@ -46,5 +47,70 @@ body{
   
   #headerPic{
     width: 100%;
+  }
+  table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    font-family: "Courier New", Courier, monospace;
+    
+  }
+  th {
+    height: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    background-color: cadetblue; 
+    color: white;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 16px;
+  }
+  td {
+    text-align: left;
+    padding: 5px;
+  }
+  #buttonDiv{
+  width:100%;
+  }
+  button {
+    background-color: cadetblue; 
+    border: 4px solid white;
+    color: white;
+    padding: 12px 32px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: "Courier New", Courier, monospace;
+  }
+  form{
+    max-width:400px;
+    margin:50px auto;
+    background:#fff;
+    border-radius:2px;
+    padding:20px;
+    font-family: "Courier New", Courier, monospace;
+    text-align: left;
+  }
+  form h2{
+    text-align: left;
+  }
+  form label{
+    font-size: 17px;
+    font-family: "Courier New", Courier, monospace;
+  }
+  input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+  input[type=number] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+  }
+  select{
+    max-width:400px;
+  }
+  .tableContainer{
+    padding: 12px 20px;
   }
   

@@ -1,29 +1,114 @@
 <!DOCTYPE html>
 <html>
-  
-<head>
+  <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Bookclub </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Bookclub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
     <script type="module" src="script.js"></script>
-</head>
-        <header>
-    <h1>Welcome to the Book-club</h1>
-    <nav>
-        <a href="./index.html" class= "navigationTags">Home</a>
-        <a href="./myPage.html" class="navigationTags">My Club</a>
-        <a href="./findNew.html" class="navigationTags">Find New</a>
-    </nav>
-        </header>
-        <body>
-        
-            <div id = "bookclubRankings">
-                <h2>
-                    Rankings
-                </h2>
-            </div>
-           
-</body>
+  </head>
+  <header>
+    <h1>International Book-club database</h1>
+  </header>
+<body>
+    <div class="imageContainer">
+      <div>
+        <img class="gridPagePics" src="./images/cozy.jpg" />
+      </div>
+      <div>
+        <img class="gridPagePics" src="./images/reading.png" />
+      </div>
+      <div>
+        <img class="gridPagePics" src="./images/food.jpg" />
+      </div>
+    </div>
+    <div id="buttonDiv"></div>
+    <div id="newClub">
+      <form action="" id="form1">
+        <h2>Join a new BookClub</h2>
+        <br />
+        <label>BookClub Name</label>
+        <input type="text" id="name" placeholder="The name...." />
+        <br />
+        <label> Age group</label>
+        <input type="number" id="age" placeholder="Age...." />
+        <br />
+        <label>Country</label>
+        <input type="text" id="country" placeholder="Country...." />
+        <br />
+        <br /><button type="submit" id="SendBtn">Join</button>
+      </form>
+    </div>
+    <form action="" id="form2">
+      <h2>Review a new book</h2>
+      <label>Enter Bookclub name</label>
+      <input type="text" id="userName" placeholder="Name...." />
+      <br />
+      <label>Author</label>
+      <input type="text" id="author" placeholder="Author...." />
+      <br />
+      <label>Book title</label>
+      <input type="text" id="bookTitle" placeholder="Booktitle..." />
+      <br />
+      <label>Publisher</label>
+      <input type="text" id="publisher" placeholder="Name of publisher" />
+      <br />
+      <label>Publishing year</label>
+      <input type="number" id="year" placeholder="year...." />
+      <br />
+      <div class="bookGenre" style="width:200px;">
+      <label for="type">Genre</label>
+      <select id="bookCategory" name="category">
+        <option value="Romance">Romance</option>
+        <option value="Horror">Horror</option>
+        <option value="Mystery">Mystery</option>
+        <option value="Humor">Humor</option>
+        <option value="Memoir">Memoir</option>
+        <option value="Sci-fi">Sci-fi</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+      <br/>
+      <label for="type">Rate the book(5 is the best)</label>
+      <select id="bookRating" name="bookRating">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+      <br />
+      <label>Comment:</label>
+            <br>
+            <textarea name="Comment..." id="comment" cols="65" rows="10"></textarea>
+      <br /><button type="submit" id="addBtn">Add</button>
+    </form>
+   
+    <div id = clubCount>
+      <h2>Book-clubs: </h2>
+    </div>
+<div class = "tableContainer">
+  <div id= "swedishClubs">
+    <h2> Swedish clubs to join</h2>
+    </div>
+   <div id= "adultsBookClub">
+      <h2> Active BookClubs for Adults</h2>
+      </div>
+<div id= "childrensBookClub">
+  <h2> Active BookClubs for Children</h2>
+  </div>  
+    <div id = "bookContainer">
+      <h2> Top Rated Books</h2>
+      <tr>
+     <table style="width:50%">
+  <th>Rating</th>
+  <th>Genre</th>
+  <th>Author</th>
+  <th>Title</th>
+  <th>Comment</th>
+</tr>
+  </div>
+</div>
+  </body>
 </html>

@@ -3,10 +3,10 @@ const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
 const bodyParser = require('body-parser')
-var mysql = require('mysql')
-var bookInformation = []
-var userInformation = []
-let values = {}
+const mysql = require('mysql')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+app.use(express.static('public'))
 
 var con = mysql.createConnection({
   host: '127.0.0.1',
@@ -21,44 +21,120 @@ con.connect(function (err) {
     throw err
   } else {
     console.log('Connected!')
-    // getUserQuery()
-    // getGenreAndRatingQuery()
-    // TestQuery()
   }
 })
-function getUserQuery () {
-  con.query('SELECT name FROM users', function (err, rows) {
-    if (!err) {
-      var string = JSON.stringify(rows)
-      var json = JSON.parse(string)
-      values = Object.values(json)
-      console.log(values)
-    } else {
-      console.log('Error while performing Query.')
+// INSERTING INTO THE TABLE
+app.post('/book', (request, response) => {
+  fetchReviewData(request)
+})
+
+app.post('/user', (request, response) => {
+  fetchUserData(request)
+})
+// 5 QUERIES
+app.get('/getAllBooks', (request, response) => {
+  getAllBooks()
+    .then(data => response.json(data))
+    .catch(err => console.log(err))
+})
+app.get('/countBookClubs', (request, response) => {
+  countBookClubs()
+    .then(data => response.json(data))
+    .catch(err => console.log(err))
+})
+app.get('/getCildrensClub', (request, response) => {
+  getChildrenClubs()
+    .then(data => response.json(data))
+    .catch(err => console.log(err))
+})
+app.get('/getAdultClub', (request, response) => {
+  getAdultClubs()
+    .then(data => response.json(data))
+    .catch(err => console.log(err))
+})
+app.get('/swedishClubs', (request, response) => {
+  getSwedishClubs()
+    .then(data => response.json(data))
+    .catch(err => console.log(err))
+})
+
+function fetchReviewData (request) {
+  const {
+    author,
+    bookTitle,
+    publisher,
+    year,
+    category,
+    ratings,
+    comment,
+    userName
+  } = request.body
+  console.log(request.body)
+  const reviewTable = `INSERT INTO bookReviews(author, title,publisher, publishingYear,genre,rating, comments, userId) VALUES
+  ('${author}','${bookTitle}','${publisher}',${year},'${category}', ${ratings},'${comment}', (SELECT userId FROM clubs WHERE name= '${userName}'));`
+  console.log(reviewTable)
+  con.query(reviewTable, function (err, result) {
+    if (err) {
+      console.log('Error at REVIEW insert')
+      throw err
+    }
+  })
+  console.log('step3')
+}
+function fetchUserData (request) {
+  const {
+    name,
+    age,
+    country
+  } = request.body
+
+  const userTable = `INSERT INTO clubs (name, age, country) VALUES ('${name}','${age}','${country}');`
+  con.query(userTable, function (err, result) {
+    if (err) {
+      console.log('Error at USER TABLE insert')
+      throw err
     }
   })
 }
-
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
-app.use(express.static('public'))
-
-app.post('/book', (request, response) => {
-  console.log('DETTA FUNKAR')
-  fetchData(request)
-})
-
-function fetchData (request) {
-  console.log(request.body)
-  bookInformation = [[request.body.author, request.body.bookTitle, request.body.publisher, request.body.year, request.body.category]]
-  var sqlTable1 = 'INSERT IGNORE INTO books (name, title, publisher, publishingYear,genre, rating) VALUES ?'
-  con.query(sqlTable1, [bookInformation], function (err, result) {
-    if (err) throw err
+function getAllBooks () {
+  return new Promise((resolve, reject) => {
+    con.query('SELECT rating, genre, author,title, comments FROM bookReviews WHERE rating >= 3 ORDER BY rating DESC', function (err, rows) {
+      if (err) reject(err)
+      resolve(rows)
+    })
   })
-  userInformation = [[request.body.name, request.body.age, request.body.country]]
-  var sqlTable2 = 'INSERT IGNORE INTO users (name, age, country) VALUES ?'
-  con.query(sqlTable2, [userInformation], function (err, result) {
-    if (err) throw err
+}
+function countBookClubs () {
+  return new Promise((resolve, reject) => {
+    con.query('select COUNT(*) from sys.clubs', function (err, rows) {
+      if (err) reject(err)
+      const entries = rows[0]['COUNT(*)']
+      resolve(entries)
+    })
+  })
+}
+function getChildrenClubs () {
+  return new Promise((resolve, reject) => {
+    con.query('SELECT DISTINCT clubs.name,clubs.country FROM sys.clubs INNER JOIN sys.bookReviews ON bookReviews.userId=clubs.userId WHERE clubs.age <18 ORDER BY clubs.country', function (err, rows) {
+      if (err) reject(err)
+      resolve(rows)
+    })
+  })
+}
+function getAdultClubs () {
+  return new Promise((resolve, reject) => {
+    con.query('SELECT DISTINCT clubs.name,clubs.country FROM sys.clubs INNER JOIN sys.bookReviews ON bookReviews.userId=clubs.userId WHERE clubs.age >= 18 ORDER BY clubs.country', function (err, rows) {
+      if (err) reject(err)
+      resolve(rows)
+    })
+  })
+}
+function getSwedishClubs () {
+  return new Promise((resolve, reject) => {
+    con.query('SELECT * FROM sys.swedishBookclubs', function (err, rows) {
+      if (err) reject(err)
+      resolve(rows)
+    })
   })
 }
 app.listen(port, console.log('server starts'))
